@@ -9,7 +9,8 @@ import (
 
 // Dice is a parsed dice formula.
 type Dice struct {
-	ops []operation
+	desc string
+	ops  []operation
 }
 
 // Roll returns the sum of this dice's random rolls.
@@ -40,11 +41,18 @@ func (d Dice) Min() int {
 	return total
 }
 
+// String returns the formula (description) of this dice.
+func (d Dice) String() string {
+	return d.desc
+}
+
 // Parse creates a new Dice with a D&D style formula.
 // It can contain any number of dice (such as 3d6 for 3 six-sided die) or
 // bonuses combined with + for addition or - for subtraction.
 func Parse(formula string) (Dice, error) {
-	d := Dice{}
+	d := Dice{
+		desc: formula,
+	}
 	var err error
 	l := lex(formula)
 	add := true

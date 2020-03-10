@@ -67,6 +67,11 @@ var cases = []testCase{
 		max:   122,
 		min:   8,
 	},
+	{
+		input: "1d4",
+		max:   4,
+		min:   1,
+	},
 }
 
 func TestDice(t *testing.T) {
@@ -81,6 +86,9 @@ func TestDice(t *testing.T) {
 				t.Error("expected error for", c.input)
 			}
 			continue
+		}
+		if d.String() != c.input {
+			t.Error("bad string: expected:", c.input, "got:", d.String())
 		}
 		if max := d.Max(); max != c.max {
 			t.Error("bad max for", c.input, "expected:", c.max, "got:", max)
